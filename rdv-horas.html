@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Horas - Relatório Mensal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="horas">
+    <div class="container">
+        <div class="header">
+            <h1>⏱️ Relatório de Horas - Faturamento e Reembolso ⏱️</h1>
+            <p>Registro detalhado de horas executadas pelo analista</p>
+        </div>
+
+        <form id="horasForm">
+            <!-- SEÇÃO 1: DADOS DA VISITA -->
+            <div class="section">
+                <div class="section-title">1. Dados da Visita</div>
+                <div class="month-selector">
+                    <div class="form-group">
+                        <label for="dataVisita" class="required">Data da Visita</label>
+                        <input type="date" id="dataVisita" name="dataVisita" required onkeydown="navegarComEnterFormulario(event)">
+                    </div>
+                    <div class="form-group">
+                        <label for="mesPeriodo" class="required">Período (Mês/Ano)</label>
+                        <input type="month" id="mesPeriodo" name="mesPeriodo" required onkeydown="navegarComEnterFormulario(event)">
+                    </div>
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <label for="licencaCliente" class="required">Licença/Cliente</label>
+                        <input type="text" id="licencaCliente" name="licencaCliente" placeholder="Informe o código da licença e a Razão Sozial do cliente" required onkeydown="navegarComEnterFormulario(event)">
+                    </div>
+                    <div class="form-group">
+                        <label for="cidadeEstado" class="required">Cidade/UF</label>
+                        <input type="text" id="cidadeEstado" name="cidadeEstado" placeholder="Informe a Cidade e Estado do Cliente" required onkeydown="navegarComEnterFormulario(event)">
+                    </div>                   
+                    <div class="form-group">
+                        <label for="numeroAtendimento" class="required">Número de Atendimento</label>
+                        <input type="text" id="numeroAtendimento" name="numeroAtendimento" placeholder="Informe o número do Atendimento do PB" required onkeydown="navegarComEnterFormulario(event)">
+                    </div>                   
+                </div>
+            </div>
+
+            <!-- SEÇÃO 2: DADOS TÉCNICOS -->
+            <div class="section">
+                <div class="section-title">2. Dados Técnicos</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nomeAnalista" class="required">Nome do Analista</label>
+                        <input type="text" id="nomeAnalista" name="nomeAnalista" placeholder="Informe o nome completo do analista" required onkeydown="navegarComEnterFormulario(event)">
+                    </div>
+                    <div class="form-group">
+                        <label for="projeto">Projeto/Descrição</label>
+                        <input type="text" id="projeto" name="projeto" placeholder="Projeto ou descrição técnica (opcional)" onkeydown="navegarComEnterFormulario(event)">
+                    </div>
+                    <div class="form-group">
+                        <label for="valorHoraTecnica" class="required">Valor Hora Técnica</label>
+                        <input type="text" id="valorHoraTecnica" name="valorHoraTecnica" placeholder="Valor da hora técnica (R$)" required onkeydown="navegarComEnterFormulario(event); if(event.key === 'Enter') validarMoeda(event.target);" onblur="validarMoeda(this)">
+                    </div>
+                </div>
+            </div>
+
+           <!-- SEÇÃO 3: REGISTRO DE HORAS -->
+            <div class="section">
+                <div class="section-title">3. Registro Detalhado de Horas</div>
+                <div class="info-box">
+                    ℹ️ Preencha o registro de horas diárias. Os totais serão calculados automaticamente.
+                </div>
+                
+                <div class="table-container">
+                    <table id="horasTable">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Intervalo</th>
+                                <th>Total Horas</th>
+                                <th>Valor (R$)</th>
+                                <th>H. Deslocamento</th>
+                                <th>Hora Bonificação</th>
+                                <th>Valor Bonificação</th>
+                                <th>Excluir Linhas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Linhas serão adicionadas dinamicamente -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td colspan="4" style="text-align: right;">TOTAIS:</td>
+                                <td><span id="totalHoras">0.00</span></td>
+                                <td>R$ <span id="totalValor">0.00</span></td>
+                                <td><span id="totalDeslocam">0.00</span></td>
+                                <td><span id="totalBonif">0.00</span></td>
+                                <td>R$ <span id="totalValorBonif">0.00</span></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" data-action="adicionarLinha">+ Adicionar Dia</button>
+                    <button type="button" class="btn btn-secondary" data-action="preencherDiasUteis">📅 Preencher Dias Úteis</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 4: RESUMO MENSAL -->
+            <div class="section">
+                <div class="section-title">4. Resumo Mensal</div>
+                <div class="summary-box">
+                    <div class="summary-item">
+                        <span class="summary-label">Total de Horas</span>
+                        <span class="summary-value"><span id="sumTotalHoras">0.00</span> h</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Total de Deslocamento</span>
+                        <span class="summary-value"><span id="sumTotalDeslocam">0.00</span> h</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Total de Horas Bonificadas</span>
+                        <span class="summary-value"><span id="sumTotalBonif">0.00</span> h</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Valor Total</span>
+                        <span class="summary-value">R$ <span id="sumTotalValor">0.00</span></span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Valor Bonificação</span>
+                        <span class="summary-value">R$ <span id="sumTotalValorBonif">0.00</span></span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Valor Total + Bonif.</span>
+                        <span class="summary-value">R$ <span id="sumTotalGeral">0.00</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 5: OBSERVAÇÕES -->
+            <div class="section">
+                <div class="section-title">5. Observações</div>
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="observacoes">Observações e Anotações</label>
+                        <textarea id="observacoes" name="observacoes" placeholder="Descreva qualquer informação relevante sobre as atividades executadas..." onkeydown="if(event.key === 'Enter' && event.ctrlKey) { event.preventDefault(); navegarComEnterFormulario(event); }"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 6: AÇÕES -->
+            <div class="section">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" data-action="salvarDados">💾 Salvar Localmente</button>
+                    <button type="button" class="btn btn-secondary" data-action="exportarJSON">📥 Exportar JSON</button>
+                    <button type="button" class="btn btn-secondary" data-action="exportarCSV">📊 Exportar CSV</button>
+                    <button type="button" class="btn btn-secondary" data-action="imprimirRelatorio">🖨️ Imprimir</button>
+                    <button type="reset" class="btn btn-secondary" data-action="limparFormulario">🔄 Limpar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

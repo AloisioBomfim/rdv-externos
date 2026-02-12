@@ -1,0 +1,33 @@
+{
+  "dataVisita": "2026-02-11",
+  "duracao": "150",
+  "nomeEmpresa": "Grupo Moraes",
+  "localVisita": "Conceição de Macabú/RJ",
+  "contatoEmpresa": "Talmo - Proprietário",
+  "telefone": "21 98478995",
+  "consultorPrincipal": "Nildo Santos",
+  "outrosProfissionais": "Giovani Miranda",
+  "participantesCliente": "Mariana - Logistica, Franciane - Faturamento",
+  "objetivo": "Implantação do ERP em quatro empresas que terão os pedidos e romaneio unificado em uma só tabela",
+  "modulos": [
+    "Financeiro",
+    "Vendas",
+    "Compras",
+    "Estoque",
+    "Produção",
+    "Integração de Sistemas"
+  ],
+  "atividades": "Foi realizado o treinamento de todos os módulos com todos os usuários da empresa.",
+  "problemas": "Cliente solicitou que fosse criado um filtro na consulta do pedido, caso contrário a sua operação ficaria comprometida.",
+  "solucoes": "Foram abertas as OS's OS-28353, OS-28127, OS-27980, OS-27882 e OS-28371",
+  "statusGeral": "producao-live",
+  "percentualProgresso": "95",
+  "risco": "baixo",
+  "proximasAcoes": "- Concluir lançamento de notas atrasadas\n- Enviar planilha com tributação para a Juliana poder validar\n- Reforçar treinamento com o Paulo (Lançamento de Notas e demais rotinas)\n- Notas de saída que não estão apresentando o ICMS-ST, imposto que foi recolhido anteriormente\n",
+  "dataProxima": "2026-03-09",
+  "responsavel": "Rodrigo Tinani",
+  "observacoes": "Necessário realizar reunião antes da saída do consultor Nildo Santos.",
+  "assinador": "Aloisio Bomfim",
+  "dataAssinatura": "2026-02-11",
+  "assinadorCliente": "Talmo"
+}

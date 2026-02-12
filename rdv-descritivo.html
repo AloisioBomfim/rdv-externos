@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Visita - Implantação ERP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Relatório de Visita - Implantação ERP</h1>
+            <p>Preenchimento obrigatório para registro de todas as atividades executadas</p>
+        </div>
+        
+        <form id="relatorioForm">
+            <!-- SEÇÃO 1: DADOS DA VISITA -->
+            <div class="section">
+                <div class="section-title">1. Identificação da Visita</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dataVisita" class="required">Data da Visita</label>
+                        <input type="date" id="dataVisita" name="dataVisita" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="duracao" class="required">Duração (horas)</label>
+                        <input type="number" id="duracao" name="duracao" min="0.5" step="0.5" placeholder="Ex: 4" required>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 2: DADOS DA EMPRESA -->
+            <div class="section">
+                <div class="section-title">2. Dados da Empresa</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nomeEmpresa" class="required">Nome da Empresa</label>
+                        <input type="text" id="nomeEmpresa" name="nomeEmpresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="localVisita" class="required">Local da Visita</label>
+                        <input type="text" id="localVisita" name="localVisita" placeholder="Cidade, Estado" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contatoEmpresa" class="required">Contato Responsável</label>
+                        <input type="text" id="contatoEmpresa" name="contatoEmpresa" placeholder="Nome e cargo">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone/Email</label>
+                        <input type="text" id="telefone" name="telefone" placeholder="(00) 0000-0000 / email@empresa.com">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 3: EQUIPE -->
+            <div class="section">
+                <div class="section-title">3. Equipe Participante</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="consultorPrincipal" class="required">Consultor Principal</label>
+                        <input type="text" id="consultorPrincipal" name="consultorPrincipal" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="outrosProfissionais">Outros Profissionais</label>
+                        <input type="text" id="outrosProfissionais" name="outrosProfissionais" placeholder="Separado por vírgula">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="participantesCliente">Participantes do Cliente</label>
+                        <input type="text" id="participantesCliente" name="participantesCliente" placeholder="Quantos e quais áreas">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 4: OBJETIVO E ESCOPO -->
+            <div class="section">
+                <div class="section-title">4. Objetivo e Escopo</div>
+                <div class="info-box">
+                    ✓ Descreva o propósito principal da visita e os módulos/áreas abordadas
+                </div>
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="objetivo" class="required">Objetivo Principal da Visita</label>
+                        <textarea id="objetivo" name="objetivo" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="required">Módulos/Áreas Abordadas</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="modulo_financeiro" name="modulos" value="Financeiro">
+                            <label for="modulo_financeiro">Financeiro</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="modulo_vendas" name="modulos" value="Vendas">
+                            <label for="modulo_vendas">Vendas</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="modulo_compras" name="modulos" value="Compras">
+                            <label for="modulo_compras">Compras</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="modulo_estoque" name="modulos" value="Estoque">
+                            <label for="modulo_estoque">Estoque</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="modulo_producao" name="modulos" value="Produção">
+                            <label for="modulo_producao">Produção</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="modulo_rh" name="modulos" value="RH">
+                            <label for="modulo_rh">RH</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="modulo_integracao" name="modulos" value="Integração de Sistemas">
+                            <label for="modulo_integracao">Integração de Sistemas</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="modulo_outro" name="modulos" value="Outro">
+                            <label for="modulo_outro">Outro</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 5: ATIVIDADES REALIZADAS -->
+            <div class="section">
+                <div class="section-title">5. Atividades Realizadas</div>
+                <div class="info-box">
+                    ✓ Descreva detalhadamente o que foi executado durante a visita
+                </div>
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="atividades" class="required">Atividades Executadas</label>
+                        <textarea id="atividades" name="atividades" placeholder="Ex: Treinamento dos usuários, Customizações implementadas, Testes realizados, etc." required></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 6: PROBLEMAS E SOLUÇÕES -->
+            <div class="section">
+                <div class="section-title">6. Problemas, Obstáculos e Soluções</div>
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="problemas">Problemas/Obstáculos Encontrados</label>
+                        <textarea id="problemas" name="problemas" placeholder="Descreva qualquer empecilho ou dificuldade encontrada"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="solucoes">Soluções Implementadas</label>
+                        <textarea id="solucoes" name="solucoes" placeholder="Descreva como cada problema foi resolvido"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 7: STATUS E PROGRESSO -->
+            <div class="section">
+                <div class="section-title">7. Status do Projeto</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="statusGeral" class="required">Status Geral do Projeto</label>
+                        <select id="statusGeral" name="statusGeral" required>
+                            <option value="">-- Selecione --</option>
+                            <option value="iniciando">Iniciando</option>
+                            <option value="configuracao">Em Configuração</option>
+                            <option value="treinamento">Em Treinamento</option>
+                            <option value="customizacao">Em Customização</option>
+                            <option value="testes">Em Testes</option>
+                            <option value="producao">Pronto para Produção</option>
+                            <option value="producao-live">Em Produção</option>
+                            <option value="suporte-pos">Suporte Pós-Implantação</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="percentualProgresso" class="required">% de Progresso Geral</label>
+                        <input type="number" id="percentualProgresso" name="percentualProgresso" min="0" max="100" step="5" placeholder="0-100" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="risco" class="required">Nível de Risco</label>
+                        <select id="risco" name="risco" required>
+                            <option value="">-- Selecione --</option>
+                            <option value="baixo">Baixo</option>
+                            <option value="medio">Médio</option>
+                            <option value="alto">Alto</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 8: PRÓXIMAS AÇÕES -->
+            <div class="section">
+                <div class="section-title">8. Próximas Ações e Planejamento</div>
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="proximasAcoes" class="required">Próximos Passos</label>
+                        <textarea id="proximasAcoes" name="proximasAcoes" placeholder="Descreva as ações necessárias até o próximo contato" required></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dataProxima">Data Prevista para Próxima Visita</label>
+                        <input type="date" id="dataProxima" name="dataProxima">
+                    </div>
+                    <div class="form-group">
+                        <label for="responsavel">Responsável pela Próxima Etapa</label>
+                        <input type="text" id="responsavel" name="responsavel" placeholder="Nome da pessoa">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 9: OBSERVAÇÕES ADICIONAIS -->
+            <div class="section">
+                <div class="section-title">9. Observações Adicionais</div>
+                <div class="form-row">
+                    <div class="form-group form-row-full">
+                        <label for="observacoes">Observações Importantes</label>
+                        <textarea id="observacoes" name="observacoes" placeholder="Informações adicionais relevantes para o projeto"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 10: ASSINATURA -->
+            <div class="section">
+                <div class="section-title">10. Aprovação</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="assinador" class="required">Nome do Consultor</label>
+                        <input type="text" id="assinador" name="assinador" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dataAssinatura" class="required">Data de Preenchimento</label>
+                        <input type="date" id="dataAssinatura" name="dataAssinatura" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="assinadorCliente">Assinatura do Cliente (Nome)</label>
+                        <input type="text" id="assinadorCliente" name="assinadorCliente" placeholder="Responsável na empresa cliente">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BOTÕES -->
+            <div class="button-group">
+                <button type="submit" class="btn-submit">💾 Salvar Relatório</button>
+                <button type="button" class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+                <button type="reset" class="btn-reset">🔄 Limpar Formulário</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        const form = document.getElementById('relatorioForm');
+        
+        // Carrega dados salvos ao abrir a página
+        window.addEventListener('DOMContentLoaded', function() {
+            const formData = localStorage.getItem('relatorioFormData');
+            if (formData) {
+                const data = JSON.parse(formData);
+                Object.keys(data).forEach(key => {
+                    const field = form.elements[key];
+                    if (field) {
+                        if (field.type === 'checkbox') {
+                            field.checked = data[key];
+                        } else {
+                            field.value = data[key];
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Salva dados automaticamente a cada mudança
+        form.addEventListener('change', function() {
+            const formData = new FormData(form);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                if (form.elements[key].type === 'checkbox') {
+                    if (!data[key]) data[key] = [];
+                    data[key].push(value);
+                } else {
+                    data[key] = value;
+                }
+            });
+            
+            localStorage.setItem('relatorioFormData', JSON.stringify(data));
+        });
+        
+        // Submissão do formulário
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                if (!data[key]) {
+                    data[key] = value;
+                } else {
+                    if (!Array.isArray(data[key])) {
+                        data[key] = [data[key]];
+                    }
+                    data[key].push(value);
+                }
+            });
+            
+            // Salva no localStorage
+            localStorage.setItem('relatorioFormData', JSON.stringify(data));
+            
+            // Cria um arquivo JSON para download
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `relatorio-erp-${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('✓ Relatório salvo com sucesso!');
+        });
+        
+        // Define a data de hoje como padrão
+        document.getElementById('dataVisita').valueAsDate = new Date();
+        document.getElementById('dataAssinatura').valueAsDate = new Date();
+    </script>
+    
+    <!-- Scripts externos -->
+    <script src="script.js"></script>
+</body>
+</html>

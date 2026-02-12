@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal - Time de Implantação ERP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="portal">
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🚀 Portal de Implantação ERP</h1>
+            <p>Plataforma centralizada para gestão de atividades do time de implantação</p>
+            
+            <div class="header-info">
+                <div class="info-card">
+                    <strong>👥 Time</strong>
+                    <span>Consultores de Implantação</span>
+                </div>
+                <div class="info-card">
+                    <strong>📊 Objetivo</strong>
+                    <span>Facilitar registro e gestão de atividades</span>
+                </div>
+                <div class="info-card">
+                    <strong>⚡ Status</strong>
+                    <span>Sistema Operacional</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENU PRINCIPAL DE RELATÓRIOS -->
+        <div class="main-menu">
+            <!-- Card 1: Relatório Descritivo -->
+            <a href="rdv-descritivo.html" class="menu-card">
+                <div class="menu-card-header">
+                    <div class="menu-card-icon">📋</div>
+                    <div class="menu-card-title">Relatório Descritivo</div>
+                    <div class="menu-card-subtitle">RDV - Descrição de Atividades</div>
+                </div>
+                <div class="menu-card-body">
+                    <p class="menu-card-desc">
+                        Registro detalhado das atividades, objetivos, equipe e resultados de cada visita técnica.
+                    </p>
+                    <ul class="menu-card-features">
+                        <li>Dados da visita</li>
+                        <li>Descrição de atividades</li>
+                        <li>Módulos abordados</li>
+                        <li>Problemas e soluções</li>
+                        <li>Próximos passos</li>
+                        <li>Exportação em PDF/JSON</li>
+                    </ul>
+                    <button class="menu-card-btn">Acessar Relatório</button>
+                </div>
+            </a>
+
+            <!-- Card 2: Controle de Horas -->
+            <a href="rdv-horas.html" class="menu-card">
+                <div class="menu-card-header" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="menu-card-icon">⏱️</div>
+                    <div class="menu-card-title">Controle de Horas</div>
+                    <div class="menu-card-subtitle">Relatório Mensal de Horas</div>
+                </div>
+                <div class="menu-card-body">
+                    <p class="menu-card-desc">
+                        Controle e registro mensal de horas executadas, deslocamento, bonificações e cálculo de valores.
+                    </p>
+                    <ul class="menu-card-features">
+                        <li>Entrada e saída</li>
+                        <li>Cálculo automático</li>
+                        <li>Horas de deslocamento</li>
+                        <li>Horas bonificadas</li>
+                        <li>Totalizadores</li>
+                        <li>Exportação em CSV/JSON</li>
+                    </ul>
+                    <button class="menu-card-btn">Acessar Controle</button>
+                </div>
+            </a>
+
+            <!-- Card 3: Documentação -->
+            <div class="menu-card" style="background-color: #f8f9fa; cursor: default;">
+                <div class="menu-card-header" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="menu-card-icon">📚</div>
+                    <div class="menu-card-title">Documentação</div>
+                    <div class="menu-card-subtitle">Guias e Manuais</div>
+                </div>
+                <div class="menu-card-body">
+                    <p class="menu-card-desc">
+                        Documentação e manuais de referência para utilização do sistema de implantação.
+                    </p>
+                    <ul class="menu-card-features">
+                        <li>Guia de uso</li>
+                        <li>FAQ</li>
+                        <li>Boas práticas</li>
+                        <li>Modelos de relatórios</li>
+                        <li>Checklist de atividades</li>
+                    </ul>
+                    <button class="menu-card-btn" style="opacity: 0.5; cursor: not-allowed;">Em Desenvolvimento</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE RECURSOS -->
+        <div class="resources-section">
+            <h2 class="section-title">📌 Recursos Disponíveis</h2>
+            <div class="resources-grid">
+                <div class="resource-item">
+                    <h3>💾 Salvamento Automático</h3>
+                    <p>Todos os formulários possuem salvamento automático no navegador para evitar perda de dados.</p>
+                </div>
+                <div class="resource-item">
+                    <h3>📥 Exportação de Dados</h3>
+                    <p>Exporte seus relatórios em formatos JSON, CSV e PDF para análise e compartilhamento.</p>
+                </div>
+                <div class="resource-item">
+                    <h3>🔢 Cálculos Automáticos</h3>
+                    <p>Totalizadores e cálculos automáticos para horas, valores e bonificações em tempo real.</p>
+                </div>
+                <div class="resource-item">
+                    <h3>📱 Responsivo</h3>
+                    <p>Acesso perfeito em desktop, tablet e mobile para máxima flexibilidade.</p>
+                </div>
+                <div class="resource-item">
+                    <h3>🖨️ Impressão</h3>
+                    <p>Imprima seus relatórios em formato A4 com layout otimizado para papel.</p>
+                </div>
+                <div class="resource-item">
+                    <h3>⚡ Sem Sincronização</h3>
+                    <p>Dados armazenados localmente no navegador para máxima segurança e privacidade.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE ESTATÍSTICAS -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-card-icon">📋</div>
+                <div class="stat-card-value" id="relatoriosCount">0</div>
+                <div class="stat-card-label">Relatórios Salvos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon">⏱️</div>
+                <div class="stat-card-value" id="horasCount">0.00</div>
+                <div class="stat-card-label">Horas Registradas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon">💰</div>
+                <div class="stat-card-value" id="valorCount">R$ 0.00</div>
+                <div class="stat-card-label">Valor Total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon">✅</div>
+                <div class="stat-card-value" id="statusCount">Ativo</div>
+                <div class="stat-card-label">Status do Sistema</div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE LINKS ÚTEIS -->
+        <div class="links-section">
+            <h2 class="section-title">🔗 Links Úteis</h2>
+            <div class="links-grid">
+                <a href="#" class="link-btn" title="Ver arquivos JSON salvos">📂 Meus Arquivos</a>
+                <a href="#" class="link-btn" title="Exportar dados em batch">📦 Exportar Tudo</a>
+                <a href="#" class="link-btn" title="Limpar dados locais">🗑️ Limpar Cache</a>
+                <a href="#" class="link-btn" title="Configurações do sistema">⚙️ Configurações</a>
+                <a href="#" class="link-btn" title="Obter suporte">❓ Suporte</a>
+                <a href="#" class="link-btn" title="Informações sobre o sistema">ℹ️ Sobre</a>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>Portal de Implantação ERP v1.0</strong></p>
+            <p>Sistema centralizado para gestão de atividades do time de implantação | Acesso: 11 de fevereiro de 2026</p>
+            <p>© 2026 - Time de Implantação | Todos os dados são armazenados localmente em seu navegador</p>
+        </div>
+    </div>
+
+    <script>
+        // Carregar estatísticas ao abrir a página
+        window.addEventListener('DOMContentLoaded', function() {
+            atualizarEstatisticas();
+        });
+
+        function atualizarEstatisticas() {
+            // Buscar dados do localStorage
+            const relatorioData = localStorage.getItem('relatorioFormData');
+            const horasData = localStorage.getItem('horasFormData');
+
+            // Contar relatórios
+            let relatoriosCount = 0;
+            if (relatorioData) {
+                try {
+                    const dados = JSON.parse(relatorioData);
+                    relatoriosCount = 1; // Contagem simplificada
+                } catch (e) {
+                    console.log('Erro ao carregar dados de relatório');
+                }
+            }
+
+            // Buscar horas e valores
+            let totalHoras = 0;
+            let totalValor = 0;
+            if (horasData) {
+                try {
+                    const dados = JSON.parse(horasData);
+                    totalHoras = parseFloat(dados.totais.totalHoras) || 0;
+                    totalValor = parseFloat(dados.totais.totalGeral) || 0;
+                } catch (e) {
+                    console.log('Erro ao carregar dados de horas');
+                }
+            }
+
+            // Atualizar exibição
+            document.getElementById('relatoriosCount').textContent = relatoriosCount;
+            document.getElementById('horasCount').textContent = totalHoras.toFixed(2);
+            document.getElementById('valorCount').textContent = 'R$ ' + totalValor.toFixed(2);
+            document.getElementById('statusCount').textContent = 'Ativo';
+        }
+
+        // Adicionar eventos aos links úteis (você pode implementar funcionalidades depois)
+        document.querySelectorAll('.link-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.textContent.includes('Desenvolvimento')) {
+                    e.preventDefault();
+                } else if (this.textContent.includes('Meus Arquivos')) {
+                    e.preventDefault();
+                    alert('Funcionalidade em desenvolvimento');
+                } else if (this.textContent.includes('Exportar Tudo')) {
+                    e.preventDefault();
+                    alert('Funcionalidade em desenvolvimento');
+                } else if (this.textContent.includes('Limpar Cache')) {
+                    e.preventDefault();
+                    if (confirm('Tem certeza que deseja limpar todos os dados salvos?')) {
+                        localStorage.clear();
+                        alert('✓ Dados limpos com sucesso');
+                        atualizarEstatisticas();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
