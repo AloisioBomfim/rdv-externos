@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultores de Implantação - Portal RDV</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .consultores-page {
+            background-color: #f5f5f5;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #ecf0f1;
+            background-color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .filter-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .area-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 5px solid #3498db;
+        }
+
+        .area-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .area-card.erp {
+            border-top-color: #3498db;
+        }
+
+        .area-card.wms {
+            border-top-color: #e74c3c;
+        }
+
+        .area-card.bi {
+            border-top-color: #f39c12;
+        }
+
+        .area-card.governance {
+            border-top-color: #9b59b6;
+        }
+
+        .area-card.support {
+            border-top-color: #1abc9c;
+        }
+
+        .area-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .area-icon {
+            font-size: 36px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .area-info h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+
+        .area-info p {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .consultants-list {
+            padding: 15px;
+        }
+
+        .consultant-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #3498db;
+            transition: all 0.3s;
+        }
+
+        .consultant-item.wms {
+            border-left-color: #e74c3c;
+        }
+
+        .consultant-item.bi {
+            border-left-color: #f39c12;
+        }
+
+        .consultant-item.governance {
+            border-left-color: #9b59b6;
+        }
+
+        .consultant-item.support {
+            border-left-color: #1abc9c;
+        }
+
+        .consultant-item:hover {
+            background-color: #ecf0f1;
+            padding-left: 15px;
+        }
+
+        .consultant-name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: space-between;
+        }
+
+        .consultant-role {
+            color: #555;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .consultant-contact {
+            font-size: 11px;
+            color: #7f8c8d;
+            line-height: 1.5;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid #ddd;
+        }
+
+        .consultant-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .status-ativo {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-disponivel {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .specializations {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .specialization {
+            display: inline-block;
+            background-color: #e8f4f8;
+            color: #2c3e50;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .area-stats {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ecf0f1;
+            font-size: 12px;
+            color: #7f8c8d;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-weight: bold;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #34495e;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #2c3e50;
+        }
+
+        .general-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 4px solid #3498db;
+        }
+
+        .stat-card .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .label {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .no-consultants {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .areas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body class="portal consultores-page">
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>👥 Consultores de Implantação</h1>
+            <p>Equipe de especialistas em implantação de sistemas e soluções empresariais</p>
+            
+            <div class="header-info">
+                <div class="info-card">
+                    <strong>🎯 Objetivo</strong>
+                    <span>Visualizar equipe de consultores</span>
+                </div>
+                <div class="info-card">
+                    <strong>📊 Áreas</strong>
+                    <span>ERP, WMS, BI e Governance</span>
+                </div>
+                <div class="info-card">
+                    <strong>⚡ Status</strong>
+                    <span>Sistema Operacional</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- VOLTAR PARA INÍCIO -->
+        <a href="index.html" class="back-link">← Voltar ao Portal</a>
+
+        <!-- ESTATÍSTICAS GERAIS -->
+        <div class="general-stats">
+            <div class="stat-card">
+                <div class="number">11</div>
+                <div class="label">Total de Consultores</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">9</div>
+                <div class="label">Consultores Ativos</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">5</div>
+                <div class="label">Áreas Cobertas</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">2</div>
+                <div class="label">Disponíveis</div>
+            </div>
+        </div>
+
+        <!-- FILTRO POR ÁREA -->
+        <div class="filter-section">
+            <span class="filter-label">Filtrar por área:</span>
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="erp">🔵 ERP</button>
+            <button class="filter-btn" data-filter="wms">🔴 WMS</button>
+            <button class="filter-btn" data-filter="bi">🟠 BI/Analytics</button>
+            <button class="filter-btn" data-filter="governance">🟣 Governance</button>
+            <button class="filter-btn" data-filter="support">🟢 Suporte</button>
+        </div>
+
+        <!-- ÁREAS E CONSULTORES -->
+        <div class="areas-grid">
+            <!-- ÁREA: ERP -->
+            <div class="area-card erp" data-area="erp">
+                <div class="area-header">
+                    <div class="area-icon">🔵</div>
+                    <div class="area-info">
+                        <h3>Time ERP</h3>
+                        <p>Especialistas em Sistemas ERP</p>
+                    </div>
+                </div>
+
+                <div class="consultants-list">
+                    <!-- Consultor: Nildo Santos -->
+                    <div class="consultant-item erp">
+                        <div class="consultant-name">
+                            🧑‍💼 Nildo Santos
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultor Sênior ERP</div>
+                        <div class="specializations">
+                            <span class="specialization">Financeiro</span>
+                            <span class="specialization">Vendas</span>
+                            <span class="specialization">Compras</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 nildo.santos@empresa.com<br>
+                            📱 +55 21 98765-4321
+                        </div>
+                    </div>
+
+                    <!-- Consultor: Giovani Miranda -->
+                    <div class="consultant-item erp">
+                        <div class="consultant-name">
+                            🧑‍💼 Giovani Miranda
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultor Pleno ERP</div>
+                        <div class="specializations">
+                            <span class="specialization">Estoque</span>
+                            <span class="specialization">Produção</span>
+                            <span class="specialization">Logística</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 giovani.miranda@empresa.com<br>
+                            📱 +55 21 98765-4322
+                        </div>
+                    </div>
+
+                    <!-- Consultor: Rodrigo Tinani -->
+                    <div class="consultant-item erp">
+                        <div class="consultant-name">
+                            🧑‍💼 Rodrigo Tinani
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultor Sênior ERP</div>
+                        <div class="specializations">
+                            <span class="specialization">Integração</span>
+                            <span class="specialization">Financeiro</span>
+                            <span class="specialization">Gestão</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 rodrigo.tinani@empresa.com<br>
+                            📱 +55 21 98765-4323
+                        </div>
+                    </div>
+
+                    <!-- Consultor: Aloisio Bomfim -->
+                    <div class="consultant-item erp">
+                        <div class="consultant-name">
+                            🧑‍💼 Aloisio Bomfim
+                            <span class="consultant-status status-disponivel">DISPONÍVEL</span>
+                        </div>
+                        <div class="consultant-role">Consultor Pleno ERP</div>
+                        <div class="specializations">
+                            <span class="specialization">Vendas</span>
+                            <span class="specialization">Estoque</span>
+                            <span class="specialization">Faturamento</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 aloisio.bomfim@empresa.com<br>
+                            📱 +55 21 98765-4324
+                        </div>
+                    </div>
+
+                    <!-- Consultor: João da Silva -->
+                    <div class="consultant-item erp">
+                        <div class="consultant-name">
+                            🧑‍💼 João da Silva
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultor Júnior ERP</div>
+                        <div class="specializations">
+                            <span class="specialization">Suporte Técnico</span>
+                            <span class="specialization">Treinamento</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 joao.silva@empresa.com<br>
+                            📱 +55 21 98765-4325
+                        </div>
+                    </div>
+                </div>
+
+                <div class="area-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div>Consultores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div>Ativos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div>Disponível</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÁREA: WMS -->
+            <div class="area-card wms" data-area="wms">
+                <div class="area-header">
+                    <div class="area-icon">🔴</div>
+                    <div class="area-info">
+                        <h3>Time WMS</h3>
+                        <p>Especialistas em Gestão de Warehouse</p>
+                    </div>
+                </div>
+
+                <div class="consultants-list">
+                    <!-- Consultor: Marco Andrade -->
+                    <div class="consultant-item wms">
+                        <div class="consultant-name">
+                            🧑‍💼 Marco Andrade
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultor Sênior WMS</div>
+                        <div class="specializations">
+                            <span class="specialization">Gestão de Estoque</span>
+                            <span class="specialization">Picking & Packing</span>
+                            <span class="specialization">Logística</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 marco.andrade@empresa.com<br>
+                            📱 +55 21 98765-4326
+                        </div>
+                    </div>
+
+                    <!-- Consultor: Carla Pereira -->
+                    <div class="consultant-item wms">
+                        <div class="consultant-name">
+                            🧑‍💼 Carla Pereira
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultora Pleno WMS</div>
+                        <div class="specializations">
+                            <span class="specialization">Romaneio</span>
+                            <span class="specialization">Integração ERP</span>
+                            <span class="specialization">Separação</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 carla.pereira@empresa.com<br>
+                            📱 +55 21 98765-4327
+                        </div>
+                    </div>
+
+                    <!-- Consultor: Felipe Costa -->
+                    <div class="consultant-item wms">
+                        <div class="consultant-name">
+                            🧑‍💼 Felipe Costa
+                            <span class="consultant-status status-disponivel">DISPONÍVEL</span>
+                        </div>
+                        <div class="consultant-role">Consultor Pleno WMS</div>
+                        <div class="specializations">
+                            <span class="specialization">Gestão de Estoque</span>
+                            <span class="specialization">Automação</span>
+                            <span class="specialization">ED/WMS</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 felipe.costa@empresa.com<br>
+                            📱 +55 21 98765-4328
+                        </div>
+                    </div>
+                </div>
+
+                <div class="area-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div>Consultores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Ativos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div>Disponível</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÁREA: BI/ANALYTICS -->
+            <div class="area-card bi" data-area="bi">
+                <div class="area-header">
+                    <div class="area-icon">🟠</div>
+                    <div class="area-info">
+                        <h3>Time BI/Analytics</h3>
+                        <p>Especialistas em Business Intelligence</p>
+                    </div>
+                </div>
+
+                <div class="consultants-list">
+                    <!-- Consultor: Ana Silva -->
+                    <div class="consultant-item bi">
+                        <div class="consultant-name">
+                            👩‍💼 Ana Silva
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultora Sênior BI</div>
+                        <div class="specializations">
+                            <span class="specialization">Power BI</span>
+                            <span class="specialization">Data Analytics</span>
+                            <span class="specialization">SQL</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 ana.silva@empresa.com<br>
+                            📱 +55 21 98765-4329
+                        </div>
+                    </div>
+
+                    <!-- Consultor: Carlos Mendes -->
+                    <div class="consultant-item bi">
+                        <div class="consultant-name">
+                            🧑‍💼 Carlos Mendes
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultor Pleno BI</div>
+                        <div class="specializations">
+                            <span class="specialization">Tableau</span>
+                            <span class="specialization">Data Warehouse</span>
+                            <span class="specialization">ETL</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 carlos.mendes@empresa.com<br>
+                            📱 +55 21 98765-4330
+                        </div>
+                    </div>
+                </div>
+
+                <div class="area-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Consultores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Ativos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0</div>
+                        <div>Disponível</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÁREA: GOVERNANCE -->
+            <div class="area-card governance" data-area="governance">
+                <div class="area-header">
+                    <div class="area-icon">🟣</div>
+                    <div class="area-info">
+                        <h3>Time Governance</h3>
+                        <p>Especialistas em Governança e Conformidade</p>
+                    </div>
+                </div>
+
+                <div class="consultants-list">
+                    <!-- Consultor: Patricia Oliveira -->
+                    <div class="consultant-item governance">
+                        <div class="consultant-name">
+                            👩‍💼 Patricia Oliveira
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultora Sênior Governance</div>
+                        <div class="specializations">
+                            <span class="specialization">Compliance</span>
+                            <span class="specialization">Auditoria</span>
+                            <span class="specialization">Processos</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 patricia.oliveira@empresa.com<br>
+                            📱 +55 21 98765-4331
+                        </div>
+                    </div>
+
+                    <!-- Consultor: Ricardo Souza -->
+                    <div class="consultant-item governance">
+                        <div class="consultant-name">
+                            🧑‍💼 Ricardo Souza
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Consultor Pleno Governance</div>
+                        <div class="specializations">
+                            <span class="specialization">Políticas</span>
+                            <span class="specialization">Segurança</span>
+                            <span class="specialization">Controles</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 ricardo.souza@empresa.com<br>
+                            📱 +55 21 98765-4332
+                        </div>
+                    </div>
+                </div>
+
+                <div class="area-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Consultores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Ativos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0</div>
+                        <div>Disponível</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÁREA: SUPORTE -->
+            <div class="area-card support" data-area="support">
+                <div class="area-header">
+                    <div class="area-icon">🟢</div>
+                    <div class="area-info">
+                        <h3>Time de Suporte</h3>
+                        <p>Especialistas em Suporte Técnico</p>
+                    </div>
+                </div>
+
+                <div class="consultants-list">
+                    <!-- Consultor: Lu Martin -->
+                    <div class="consultant-item support">
+                        <div class="consultant-name">
+                            👩‍💼 Lucia Martin
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Analista de Suporte Sênior</div>
+                        <div class="specializations">
+                            <span class="specialization">Support Técnico</span>
+                            <span class="specialization">Troubleshooting</span>
+                            <span class="specialization">Documentação</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 lucia.martin@empresa.com<br>
+                            📱 +55 21 98765-4333
+                        </div>
+                    </div>
+
+                    <!-- Consultor: Bruno Santos -->
+                    <div class="consultant-item support">
+                        <div class="consultant-name">
+                            🧑‍💼 Bruno Santos
+                            <span class="consultant-status status-ativo">ATIVO</span>
+                        </div>
+                        <div class="consultant-role">Analista de Suporte Pleno</div>
+                        <div class="specializations">
+                            <span class="specialization">Help Desk</span>
+                            <span class="specialization">Incident Management</span>
+                            <span class="specialization">Treinamento</span>
+                        </div>
+                        <div class="consultant-contact">
+                            📧 bruno.santos@empresa.com<br>
+                            📱 +55 21 98765-4334
+                        </div>
+                    </div>
+                </div>
+
+                <div class="area-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Consultores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Ativos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0</div>
+                        <div>Disponível</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>Sistema centralizado para gestão de atividades do time de implantação | Acesso: 12 de fevereiro de 2026</p>
+            <p>© 2026 - Time de Implantação | Todos os dados são armazenados localmente em seu navegador</p>
+        </div>
+    </div>
+
+    <script>
+        // Filtro de áreas
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.dataset.filter;
+                
+                // Atualizar botão ativo
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filtrar cards
+                document.querySelectorAll('.area-card').forEach(card => {
+                    if (filter === 'all' || card.dataset.area === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

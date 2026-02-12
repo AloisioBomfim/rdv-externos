@@ -356,6 +356,15 @@ body.portal .container {
     padding: 15px;
     border-radius: 6px;
     border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    background-color: #e8eef5;
+    border-left-color: #764ba2;
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
 .info-card strong {
@@ -367,6 +376,11 @@ body.portal .container {
 .info-card span {
     color: #7f8c8d;
     font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.info-card:hover span {
+    color: #2c3e50;
 }
 
 /* MENU PRINCIPAL DO PORTAL */
