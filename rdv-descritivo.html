@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Visita - Implantação ERP</title>
+    <title>Relatório de Visita - Suporte Externo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📋 Relatório de Visita - Implantação ERP</h1>
+            <h1>📋 Relatório de Visita - Suporte Externo</h1>
             <p>Preenchimento obrigatório para registro de todas as atividades executadas</p>
         </div>
         
@@ -34,8 +34,8 @@
                 <div class="section-title">2. Dados da Empresa</div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="nomeEmpresa" class="required">Nome da Empresa</label>
-                        <input type="text" id="nomeEmpresa" name="nomeEmpresa" required>
+                        <label for="nomeEmpresa" class="required">Licença / Nome da Empresa</label>
+                        <input type="text" id="nomeEmpresa" name="nomeEmpresa" placeholder="Informe o Código da Licença e a Razão Social da Empresa" required>
                     </div>
                     <div class="form-group">
                         <label for="localVisita" class="required">Local da Visita</label>
@@ -92,23 +92,23 @@
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="modulo_financeiro" name="modulos" value="Financeiro">
-                            <label for="modulo_financeiro">Financeiro</label>
+                            <label for="modulo_financeiro">Vendas / Faturamento / Estoque</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="modulo_vendas" name="modulos" value="Vendas">
-                            <label for="modulo_vendas">Vendas</label>
+                            <label for="modulo_vendas">Financeiro</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="modulo_compras" name="modulos" value="Compras">
-                            <label for="modulo_compras">Compras</label>
+                            <label for="modulo_compras">Livro Fiscal</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="modulo_estoque" name="modulos" value="Estoque">
-                            <label for="modulo_estoque">Estoque</label>
+                            <label for="modulo_estoque">Contabilidade</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="modulo_producao" name="modulos" value="Produção">
-                            <label for="modulo_producao">Produção</label>
+                            <label for="modulo_producao">Compras</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="modulo_rh" name="modulos" value="RH">
@@ -248,15 +248,63 @@
             
             <!-- BOTÕES -->
             <div class="button-group">
+                <button type="button" class="btn-open" onclick="abrirRelatorio()">📂 Abrir Relatório</button>
                 <button type="submit" class="btn-submit">💾 Salvar Relatório</button>
                 <button type="button" class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
                 <button type="reset" class="btn-reset">🔄 Limpar Formulário</button>
             </div>
+            <!-- Input hidden para seleção de arquivo -->
+            <input type="file" id="fileInput" style="display: none;" accept=".json" onchange="carregarRelatorioJSON(event)">
         </form>
     </div>
     
     <script>
         const form = document.getElementById('relatorioForm');
+        
+        // Função para abrir o diálogo de seleção de arquivo
+        function abrirRelatorio() {
+            document.getElementById('fileInput').click();
+        }
+        
+        // Função para carregar relatório do arquivo JSON
+        function carregarRelatorioJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Preencher o formulário com os dados do JSON
+                    Object.keys(data).forEach(key => {
+                        const field = form.elements[key];
+                        if (field) {
+                            if (Array.isArray(data[key])) {
+                                // Para checkboxes múltiplos
+                                data[key].forEach(value => {
+                                    const checkbox = form.querySelector(`input[name="${key}"][value="${value}"]`);
+                                    if (checkbox) checkbox.checked = true;
+                                });
+                            } else if (field.type === 'checkbox') {
+                                field.checked = data[key];
+                            } else {
+                                field.value = data[key];
+                            }
+                        }
+                    });
+                    
+                    alert('✓ Relatório carregado com sucesso! Agora você pode editar e imprimir.');
+                    
+                    // Limpar o input de arquivo
+                    event.target.value = '';
+                } catch (error) {
+                    alert('✗ Erro ao carregar o arquivo. Certifique-se de que é um arquivo JSON válido.');
+                    console.error('Erro:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
         
         // Carrega dados salvos ao abrir a página
         window.addEventListener('DOMContentLoaded', function() {

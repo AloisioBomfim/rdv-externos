@@ -94,10 +94,37 @@ body {
 .form-group textarea {
     resize: none;
     min-height: 80px;
-    overflow: hidden;
+    overflow: auto;
+    max-height: 600px;
     font-family: 'Courier New', monospace;
     line-height: 1.5;
     transition: height 0.1s ease;
+    text-align: justify;
+    text-justify: inter-word;
+    border: 1px solid #cfcfcf;
+    padding: 10px 12px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilização da barra de rolagem para melhor usabilidade */
+.form-group textarea::-webkit-scrollbar {
+    width: 10px;
+}
+.form-group textarea::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+.form-group textarea::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 6px;
+}
+.form-group textarea::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+.form-group textarea {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
 .form-row-full {
@@ -134,12 +161,13 @@ body {
     cursor: pointer;
 }
 
-/*.button-group {
+.button-group {
     display: flex;
     gap: 10px;
     margin-top: 30px;
     justify-content: center;
-}*/
+    flex-wrap: wrap;
+}
 
 button {
     padding: 12px 30px;
@@ -179,6 +207,16 @@ button {
 
 .btn-print:hover {
     background-color: #2980b9;
+}
+
+.btn-open {
+    background-color: #e67e22;
+    color: white;
+}
+
+.btn-open:hover {
+    background-color: #d35400;
+    box-shadow: 0 2px 5px rgba(230, 126, 34, 0.3);
 }
 
 .info-box {
@@ -273,6 +311,32 @@ button {
     
     .form-group { 
         page-break-inside: avoid;
+    }
+
+    /* Quando a classe 'allow-break' for adicionada via JS, permitir quebras dentro do elemento */
+    .form-group.allow-break,
+    .form-row.allow-break,
+    .section.allow-break {
+        page-break-inside: auto !important;
+        -webkit-page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    /* Estilos visuais para o bloco usado na impressão (substitui textarea) */
+    .print-textarea {
+        display: block !important;
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        text-align: justify !important;
+        text-justify: inter-word !important;
+        border: 1px solid #cfcfcf !important;
+        padding: 6px 8px !important;
+        border-radius: 4px !important;
+        background: transparent !important;
     }
     
     .form-group label { font-size: 12px; }
@@ -1130,4 +1194,23 @@ body.portal .container {
         margin: 10px;
         size: A4;
     }
+}
+
+/* Estilos para impressão: substituir textareas por blocos que permitem quebra de página */
+@media print {
+    textarea { display: none !important; }
+    input[type="file"] { display: none !important; }
+    .button-group, .btn-open, .btn-submit, .btn-print, .btn-reset { display: none !important; }
+
+    .print-textarea {
+        display: block !important;
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    .container { box-shadow: none; border-radius: 0; padding: 12px; }
 }

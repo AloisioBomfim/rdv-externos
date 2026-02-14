@@ -28,10 +28,13 @@ function inicializarAutoResizeTextarea() {
 function ajustarAlturaTextarea(textarea) {
     // Reset da altura para calcular o scrollHeight corretamente
     textarea.style.height = 'auto';
+    textarea.style.overflowY = 'hidden';
     
     // Calcular nova altura (com mínimo de 80px e máximo de 600px)
     const novaAltura = Math.min(Math.max(textarea.scrollHeight, 80), 600);
     textarea.style.height = novaAltura + 'px';
+    // Mostrar barra de rolagem vertical caso o conteúdo exceda a altura máxima
+    textarea.style.overflowY = (novaAltura >= 600) ? 'auto' : 'hidden';
 }
 
 // ========== CONFIGURAÇÃO INICIAL ===========
@@ -584,4 +587,59 @@ function limparFormulario() {
         preencherMesAtual();
         preencherDiasUteis();
     }
+}
+
+// Substitui textareas por blocos de texto antes da impressão para permitir quebra de página correta
+function preparePrintReplaceTextareas() {
+    document.querySelectorAll('textarea').forEach(textarea => {
+        // Não processar textareas que já estejam ocultas
+        if (textarea.offsetParent === null) return;
+
+        const div = document.createElement('div');
+        div.className = 'print-textarea';
+        // preservar valor com quebras de linha
+        div.textContent = textarea.value || '';
+
+        // copiar estilos essenciais para manter aparência no print
+        const cs = window.getComputedStyle(textarea);
+        div.style.font = cs.font;
+        div.style.fontSize = cs.fontSize;
+        div.style.lineHeight = cs.lineHeight;
+        div.style.width = cs.width;
+        div.style.padding = cs.padding;
+        div.style.margin = cs.margin;
+        div.style.boxSizing = 'border-box';
+
+        // esconder textarea e inserir o bloco de texto logo após ele
+        textarea.style.display = 'none';
+        textarea.parentNode.insertBefore(div, textarea.nextSibling);
+
+        // permitir quebras dentro dos contêineres pais quando o conteúdo for longo
+        const formGroup = textarea.closest('.form-group');
+        if (formGroup) formGroup.classList.add('allow-break');
+        const formRow = textarea.closest('.form-row');
+        if (formRow) formRow.classList.add('allow-break');
+        const section = textarea.closest('.section');
+        if (section) section.classList.add('allow-break');
+    });
+}
+
+function restoreTextareasAfterPrint() {
+    document.querySelectorAll('.print-textarea').forEach(div => {
+        const textarea = div.previousElementSibling;
+        if (textarea && textarea.tagName && textarea.tagName.toLowerCase() === 'textarea') {
+            textarea.style.display = '';
+        }
+        if (div.parentNode) div.parentNode.removeChild(div);
+    });
+    // remover classes que permitiam quebra
+    document.querySelectorAll('.allow-break').forEach(el => el.classList.remove('allow-break'));
+}
+
+if (window.matchMedia) {
+    window.addEventListener('beforeprint', preparePrintReplaceTextareas);
+    window.addEventListener('afterprint', restoreTextareasAfterPrint);
+} else {
+    window.onbeforeprint = preparePrintReplaceTextareas;
+    window.onafterprint = restoreTextareasAfterPrint;
 }
